@@ -1,0 +1,43 @@
+{
+    "name": "AniList x VoirAnime",
+    "version": "0.1.0",
+    "description": "AniList x VoirAnime",
+    "permissions": ["storage", "tabs"],
+    "host_permissions": [
+        "*://*.voiranime.com/*",
+        "*://*.youtube.com/*",
+        "*://*.anilist.co/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": ["*://*.voiranime.com/*", "https://*.youtube.com/*", "*://*.anilist.co/*"],
+            "js": ["contentScript.js"]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "assets/bookmark.png",
+                "assets/play.png",
+                "assets/delete.png",
+                "assets/save.png",
+                
+                "js/request.js"
+            ],
+            "matches": ["*://*.voiranime.com/*", "https://*.youtube.com/*", "*://*.anilist.co/*"]
+        }
+    ],
+    "action": {
+        "default_icon": {
+            "16": "assets/tab-icon.png",
+            "24": "assets/tab-icon.png",
+            "32": "assets/tab-icon.png"
+        },
+        "default_title": "AniList x VoirAnime",
+        "default_popup": "popup.html"
+    },
+    "manifest_version": 3
+}
