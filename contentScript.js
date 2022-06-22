@@ -31,6 +31,10 @@
         }
         console.log("loading...");
 
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+
         const div = document.createElement("div");
         div.id  = "aderox_extention_set";
         document.getElementsByClassName("logo")[0].appendChild(div);
