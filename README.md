@@ -1,5 +1,5 @@
 # voiranimeExtension
-An chrome extension for voiranime
+A chrome extension for voiranime
 
 It's not working ?
 Disable FRA: AdGuard Français 
