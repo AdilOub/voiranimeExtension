@@ -1,5 +1,7 @@
 # voiranimeExtension
 A chrome extension for voiranime NOT OFFICIAL
+L'extension met à jour automatiquement votre progrès sur anilist quand vous regardez des épisodes sur voiranime
+
 
 Ça ne marche pas ?<br/>
 Désactivez le fitre FRA: AdGuard Français dans votre navigateur<br/>
