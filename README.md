@@ -1,17 +1,17 @@
 # voiranimeExtension
 A chrome extension for voiranime NOT OFFICIAL
 
-Ça ne marche pas ?
-Désactivez le fitre FRA: AdGuard Français dans votre navigateur
-Toujours pas ? 
-Enlevez votre adblock
-Nan?
-Ouvrez une issues (et regardez la console)
+Ça ne marche pas ?<br/>
+Désactivez le fitre FRA: AdGuard Français dans votre navigateur<br/>
+Toujours pas ? <br/>
+Enlevez votre adblock<br/>
+Nan?<br/>
+Ouvrez une issues (et regardez la console)<br/>
 
-It's not working ?
-Disable FRA: AdGuard Français 
-If it don't fix try to disable your adblock (rip)
-If it's still not working, open the console and gimme info
+It's not working ?<br/>
+Disable FRA: AdGuard Français <br/>
+If it don't fix try to disable your adblock (rip)<br/>
+If it's still not working, open the console and gimme info<br/>
 
 **TODO**:<br/>
 1-Meilleur style ✅<br/>
