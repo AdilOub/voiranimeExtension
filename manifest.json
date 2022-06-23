@@ -1,35 +1,25 @@
 {
-    "name": "AniList x VoirAnime",
+    "name": "AniList x VoirAnime (unofficial)",
     "version": "0.1.1",
-    "description": "AniList x VoirAnime",
+    "description": "AniList x VoirAnime (unofficial)",
     "permissions": ["storage", "tabs"],
     "host_permissions": [
         "*://*.voiranime.com/*",
-        "*://*.youtube.com/*",
         "*://*.anilist.co/*"
     ],
     "background": {
         "service_worker": "background.js"
     },
-    "content_scripts": [
-        {
-            "matches": ["*://*.voiranime.com/*", "https://*.youtube.com/*", "*://*.anilist.co/*"],
-            "js": ["contentScript.js"]
-        }
-    ],
-    "web_accessible_resources": [
-        {
-            "resources": [
-                "assets/bookmark.png",
-                "assets/play.png",
-                "assets/delete.png",
-                "assets/save.png",
-                
-                "js/request.js"
-            ],
-            "matches": ["*://*.voiranime.com/*", "https://*.youtube.com/*", "*://*.anilist.co/*"]
-        }
-    ],
+    "content_scripts": [{
+        "matches": ["*://*.voiranime.com/*", "*://*.anilist.co/*"],
+        "js": ["contentScript.js"]
+    }],
+    "web_accessible_resources": [{
+        "resources": [
+            "js/request.js"
+        ],
+        "matches": ["*://*.voiranime.com/*", "*://*.anilist.co/*"]
+    }],
     "action": {
         "default_icon": {
             "16": "assets/tab-icon.png",
@@ -38,6 +28,11 @@
         },
         "default_title": "AniList x VoirAnime",
         "default_popup": "popup.html"
+    },
+    "icons": {
+        "16": "assets/icon.png",
+        "48": "assets/icon.png",
+        "128": "assets/icon.png"
     },
     "manifest_version": 3
 }
