@@ -152,7 +152,7 @@
                 "token_errored": true
             }, () => {console.log("token set to errored");});
 
-            setTimeout(function(){location.href = link;}, 200000, link);
+            setTimeout(function(){location.href = link;}, 2500, link);
             
             return;
         }
