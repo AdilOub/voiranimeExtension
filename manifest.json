@@ -1,6 +1,6 @@
 {
     "name": "AniList x VoirAnime (unofficial)",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "AniList x VoirAnime (unofficial)",
     "permissions": ["storage", "tabs"],
     "host_permissions": [
