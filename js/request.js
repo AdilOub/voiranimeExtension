@@ -15,10 +15,6 @@ class RequestApi {
     }
 
 
-    async getAuth() {
-        return;
-    }
-
     /*
      * @param {string} name the anime name undetited (with '-' instead of ' ')
      * @returns {Promise<int>} id of the anime
@@ -53,17 +49,20 @@ class RequestApi {
             })
         };
 
-        console.log("fetching...");
+        console.log("fetching anime id...");
 
         const response = await fetch(this.url, options);
         try {
             const json = await response.json()
             const animeID = json.data.Media.id;
-            return Promise.resolve(animeID);
+            return animeID;
         } catch (e) {
-            return Promise.reject();
+            console.log(e);
+            throw new Error("wrong_id")
         }
     }
+
+
 
     async getMediaListEntryByAnimeID(animeId, token) {
         const query = `mutation ($mediaId: Int, $status: MediaListStatus) {
@@ -99,17 +98,19 @@ class RequestApi {
         } catch (e) {
             //wrong token 
             console.log(e);
-            return Promise.reject("wrong_token")
+            throw new Error("wrong_token")
         }
 
         try {
             json = await response.json();
-            return Promise.resolve(json.data.SaveMediaListEntry.id)
+            return json.data.SaveMediaListEntry.id
         } catch (e) {
             console.log(e);
-            return Promise.reject("wrong_json")
+            throw new Error("wrong_json")
         }
     }
+
+
 
     async updateMediaList(animeID, mediaListID, episode, token){
         const query = `mutation ($id: Int, $mediaId: Int, $progress: Int) {
@@ -117,11 +118,6 @@ class RequestApi {
                 id
             }
         }`;
-
-        console.log("variables:");
-        console.log(mediaListID);
-        console.log(animeID);
-        console.log(episode);
 
         const variables = {
             "id": mediaListID,
@@ -146,22 +142,18 @@ class RequestApi {
         let response, json;
         try {
             response = await fetch(this.url, options);
-            console.log("response: ");
-            console.log(response);
         } catch (e) {
             //wrong token 
             console.log(e);
-            return Promise.reject("wrong_token")
+            throw new Error("wrong_token")
         }
 
         try {
             json = await response.json();
-            console.log("json");
-            console.log(json);
-            return Promise.resolve(json.data.SaveMediaListEntry.id)
+            return json.data.SaveMediaListEntry.id
         } catch (e) {
             console.log(e);
-            return Promise.reject("wrong_json")
+            throw new Error("wrong_json")
         }
         
     }

@@ -54,14 +54,28 @@
         currentEpisode = parseInt(titleSlited[titleSlited.length -2]);
 
         if(nextButton){
-            nextButton.addEventListener("click", () => {
-                updateAnime(currentAnime, currentEpisode, true).then(() => {location.href = nextPageLink}).catch((e) => {handleError(e, true)}); //nextPageLink
+            nextButton.addEventListener("click", async () => {
+                const result = await updateAnime(currentAnime, currentEpisode, true).catch((e) => {handleError(e, true)}); //nextPageLink
+                console.log("result next");
+                console.log(result);
+                if(result && result.isOk == true){
+                    location.href = nextPageLink;
+                    return;
+                }
+                handleError(undefined, true);
             });    
         }
 
         if(prevButton){
-            prevButton.addEventListener("click", () => {
-                updateAnime(currentAnime, currentEpisode, false).then(() => {location.href = prevPageLink}).catch((e) => {handleError(e, false)});
+            prevButton.addEventListener("click", async () => {
+                const result = await updateAnime(currentAnime, currentEpisode, false).catch((e) => {handleError(e, false)});
+                console.log("result prev");
+                console.log(result);
+                if(result && result.isOk == true){
+                    location.href = prevPageLink;
+                    return;
+                }
+                handleError(undefined, true);
             });
         }
     }
@@ -75,30 +89,27 @@
      */
     async function updateAnime(animeName, currentEpisode, nextEpisode = true){
         animeName = animeName.split('-').join(' ');
-        console.log(animeName);
-        console.log(currentEpisode);
-        console.log(nextEpisode);
 
         const episode = nextEpisode ? currentEpisode + 1 : currentEpisode - 1;
 
-        try{
-            const instanceRequest = request.getRequestApiInstance();
-            const animeId = await instanceRequest.getAnimeIDByName(animeName);
-            console.log("anime id: " + animeId);
+        const instanceRequest = request.getRequestApiInstance();
+
+        const animeId = await instanceRequest.getAnimeIDByName(animeName).catch((e) => {throw e});
             
-            const token = await fetchTocken();
+        const token = await fetchTocken();
+        console.log("token: " + token);
 
-            const mediaListEntryID = await instanceRequest.getMediaListEntryByAnimeID(animeId, token)
-            console.log("mediaListEntryID :");
-            console.log(mediaListEntryID);
+        const mediaListEntryID = await instanceRequest.getMediaListEntryByAnimeID(animeId, token).catch((e) => {throw e})
 
-            const updatedMediaList = await instanceRequest.updateMediaList(animeId, mediaListEntryID, episode, token);
-            console.log("updated: ");
-            console.log(updatedMediaList);
+        const updatedMediaList = await instanceRequest.updateMediaList(animeId, mediaListEntryID, episode, token).catch((e) => {throw e});
+        console.log("media updated: " + updatedMediaList);
+        console.log("no error !");
 
-        }catch(e){
-            handleError(e, nextEpisode);
-        }
+        chrome.storage.sync.set({
+            "token_errored": false
+        }, () => {console.log("token set to not errored");});
+
+        return {"isOk": true};
 
     }
 
@@ -111,11 +122,40 @@
         })
     }
 
-    const handleError = (e, nextButton) => {
-        //TODO popUp! 
-        alert("error !");
+
+    const handleError = async(e, nextButton) => {
+        console.log("handle error !");
+        if(!e){
+            console.log("no error");
+            return;
+        }
+
+        console.log(e);
+        const menuBar = document.getElementsByClassName("c-sub-header-nav")[0]
         const link = nextButton ? nextPageLink : prevPageLink;
-        location.href = link;
+
+        if(document.getElementById("aderox_extention_error")){
+            setTimeout(function(){location.href = link;}, 2000, link);
+            return;
+        }
+
+        if(menuBar){
+            const errorDiv = document.createElement("div");
+            errorDiv.id = "aderox_extention_error";
+            errorDiv.style.color = "white";
+            errorDiv.style.backgroundColor = "red";
+            errorDiv.style.textAlign = "center";
+            errorDiv.innerHTML = "Erreur lors de la mise à jour de votre liste de lecture. Vous devriez peut-être vous recconecter.";
+            menuBar.appendChild(errorDiv);
+
+            chrome.storage.sync.set({
+                "token_errored": true
+            }, () => {console.log("token set to errored");});
+
+            setTimeout(function(){location.href = link;}, 200000, link);
+            
+            return;
+        }
     }
 
 

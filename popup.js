@@ -8,6 +8,13 @@ const fetchTocken = async () => {
     })
 }
 
+const isTokenErrored = async () => {
+    return new Promise((resolve, reject) => {
+        chrome.storage.sync.get(["token_errored"], (obj) => {
+            resolve(obj["token_errored"]);
+        });
+    })
+}
 
 document.addEventListener("DOMContentLoaded", async() => {
     const tab = await getActiveTab();
@@ -15,7 +22,9 @@ document.addEventListener("DOMContentLoaded", async() => {
 
     if(tab.url && tab.url.includes("voiranime.com") && animeName){
         const token = await fetchTocken();
-        if(token && token != ""){
+        const errored = await isTokenErrored();
+        console.log("errored: " + errored);
+        if((token && token != "") || errored=="true"){
             document.getElementById("login").innerHTML = "<p color='green'> Vous êtes connecté ! </p> <button id='deco_btn'> Se déconnecter </button>";
             document.getElementById("deco_btn").addEventListener("click", () => {
                 chrome.storage.sync.set({
@@ -25,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async() => {
             });
         }
     }else{
-        document.getElementById("container").innerHTML = "<p color='red'>Vous devez être sur voiranime pour utiliser l'extension</p>";
+        document.getElementById("container").innerHTML = "<a id='valink' href='https://voiranime.com/' target='_blank' color='red'>Vous devez être sur voiranime pour utiliser l'extension</a>";
     }
 });
 

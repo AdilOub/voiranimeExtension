@@ -1,8 +1,28 @@
-body{
-    width: 200px;
-    background-color: #ff0000;
+#html{
+    background-color: gold;
+    width: fit-content;
+    height: fit-content;
 }
 
 #login{
-    margin: 10px 10px 10px 10px;
+    text-align: center;
+    margin: auto auto;
+    font-size: 1.25em;
+}
+
+#valink{
+    font-size: 1.2em;
+}
+
+#aderox_extention_error{
+    color: red;
+    font-size: 1.2em;
+    width: fit-content;
+    height: fit-content;
+}
+
+
+#deco_btn{
+    width: min-content;
+    height: min-content;   
 }
