@@ -1,5 +1,5 @@
 # voiranimeExtension
-A chrome extension for voiranime NOT OFFICIAL
+A chrome extension for voiranime NOT OFFICIAL<br/>
 L'extension met à jour automatiquement votre progrès sur anilist quand vous regardez des épisodes sur voiranime
 
 
