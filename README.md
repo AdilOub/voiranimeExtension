@@ -1,4 +1,6 @@
-# voiranimeExtension
+# voiranimeExtension (DEPRECTAED)
+## L'API anilist a changé, l'extension ne fonctionne plus (et a été retiré du marketplace)
+
 A chrome extension for voiranime NOT OFFICIAL<br/>
 L'extension met à jour automatiquement votre progrès sur anilist quand vous regardez des épisodes sur voiranime
 
